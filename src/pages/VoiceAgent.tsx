@@ -21,7 +21,7 @@ export function VoiceAgent() {
         const res = await fetch("/api/voice-agent/test-chat/session", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ agent_id: 16774, workspace_id: "cmpzn00r90ki0ur1ox1zop8w7" })
+          body: JSON.stringify({ agent_id: 16676, workspace_id: "cmpzuuz7v0ko6ur1osqdbn324" })
         });
         const data = await res.json();
         if (data.session_id) {
@@ -50,8 +50,8 @@ export function VoiceAgent() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           phone_number: phoneNumber,
-          agent_id: 16774,
-          workspace_id: "cmpzn00r90ki0ur1ox1zop8w7",
+          agent_id: 16676,
+          workspace_id: "cmpzuuz7v0ko6ur1osqdbn324",
           provider: "twilio"
         })
       });
@@ -94,7 +94,7 @@ export function VoiceAgent() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           session_id: chatSessionId,
-          workspace_id: "cmpzn00r90ki0ur1ox1zop8w7",
+          workspace_id: "cmpzuuz7v0ko6ur1osqdbn324",
           message: userMessage
         })
       });
@@ -188,7 +188,7 @@ export function VoiceAgent() {
               <h3 className="font-black uppercase text-xl mb-4 text-white border-b-4 border-black pb-2">Configuration Context</h3>
               <ul className="space-y-4 font-bold tracking-wide mt-4">
                 <li className="flex justify-between items-center bg-white p-3 border-4 border-black text-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
-                  <span className="opacity-70">Agent ID</span> <span className="text-xl">16774</span>
+                  <span className="opacity-70">Agent ID</span> <span className="text-xl">16676</span>
                 </li>
                 <li className="flex justify-between items-center bg-white p-3 border-4 border-black text-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
                   <span className="opacity-70">Provider</span> <span className="text-xl">Twilio</span>
@@ -232,7 +232,7 @@ export function VoiceAgent() {
                     `}
                   >
                     <div className="font-black text-xs uppercase tracking-widest mb-1 opacity-50 block font-mono">
-                      {msg.role === 'user' ? 'CLIENT_USER' : 'VANI_AGENT_16774'}
+                      {msg.role === 'user' ? 'CLIENT_USER' : 'VANI_AGENT_16676'}
                     </div>
                     {msg.content}
                   </div>
