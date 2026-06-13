@@ -51,8 +51,7 @@ export function VoiceAgent() {
         body: JSON.stringify({
           phone_number: phoneNumber,
           agent_id: 16676,
-          workspace_id: "cmpzuuz7v0ko6ur1osqdbn324",
-          provider: "twilio"
+          workspace_id: "cmpzuuz7v0ko6ur1osqdbn324"
         })
       });
       const data = await res.json();
@@ -191,7 +190,7 @@ export function VoiceAgent() {
                   <span className="opacity-70">Agent ID</span> <span className="text-xl">16676</span>
                 </li>
                 <li className="flex justify-between items-center bg-white p-3 border-4 border-black text-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
-                  <span className="opacity-70">Provider</span> <span className="text-xl">Twilio</span>
+                  <span className="opacity-70">Provider</span> <span className="text-xl">Default</span>
                 </li>
               </ul>
             </div>
