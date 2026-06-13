@@ -3,6 +3,10 @@
     {
       "source": "/api/voice-agent/:path*",
       "destination": "https://voice-agent.edesy.in/api/:path*"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
     }
   ]
 }
