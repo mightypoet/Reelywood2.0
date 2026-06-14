@@ -52,7 +52,7 @@ export function VoiceAgent() {
         const res = await fetch("/api/voice-agent/test-chat/session", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ agent_id: agentDetails.vani_agent_id, workspace_id: agentDetails.vani_workspace_id })
+          body: JSON.stringify({ agent_id: Number(agentDetails.vani_agent_id) || agentDetails.vani_agent_id, workspace_id: agentDetails.vani_workspace_id })
         });
         const data = await res.json();
         if (data.session_id) {
@@ -81,16 +81,22 @@ export function VoiceAgent() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           phone_number: phoneNumber,
-          agent_id: agentDetails.vani_agent_id,
+          agent_id: Number(agentDetails.vani_agent_id) || agentDetails.vani_agent_id,
           workspace_id: agentDetails.vani_workspace_id
         })
       });
       const data = await res.json();
-      if (data.call_sid) {
-        setCallSid(data.call_sid);
+      if (data.call_sid || data.status === "success" || data.success) {
+        setCallSid(data.call_sid || 'call-in-progress');
+      } else {
+        setIsCalling(false);
+        console.error("Call returned error:", data);
+        alert(data.error || data.message || "Failed to initiate call.");
       }
     } catch (err) {
-      console.error(err);
+      console.error("Call error:", err);
+      setIsCalling(false);
+      alert("An error occurred while initiating the call.");
     }
   };
 
