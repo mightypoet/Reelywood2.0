@@ -1,8 +1,15 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useParams } from 'react-router-dom';
+import { supabase } from '../lib/supabaseClient';
+import { AgentData } from '../types';
 import { LiquidButton, MetalButton } from '../components/ui/button';
 import { Phone, PhoneOff, Send, MessageSquare, Loader2 } from 'lucide-react';
 
 export function VoiceAgent() {
+  const { id } = useParams<{ id: string }>();
+  const [agentDetails, setAgentDetails] = useState<AgentData | null>(null);
+  const [isLoadingAgent, setIsLoadingAgent] = useState(true);
+
   const [phoneNumber, setPhoneNumber] = useState('');
   const [isCalling, setIsCalling] = useState(false);
   const [callSid, setCallSid] = useState<string | null>(null);
@@ -15,13 +22,37 @@ export function VoiceAgent() {
   const chatScrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Initialize Chat Session
+    if (id) {
+      fetchAgentInfo();
+    }
+  }, [id]);
+
+  const fetchAgentInfo = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('agents')
+        .select('*')
+        .eq('id', id)
+        .single();
+      
+      if (error) throw error;
+      setAgentDetails(data);
+    } catch (err) {
+      console.error("Error fetching agent", err);
+    } finally {
+      setIsLoadingAgent(false);
+    }
+  };
+
+  useEffect(() => {
+    // Initialize Chat Session once agentDetails are loaded
     const initChat = async () => {
+      if (!agentDetails) return;
       try {
         const res = await fetch("/api/voice-agent/test-chat/session", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ agent_id: 16676, workspace_id: "cmpzuuz7v0ko6ur1osqdbn324" })
+          body: JSON.stringify({ agent_id: agentDetails.vani_agent_id, workspace_id: agentDetails.vani_workspace_id })
         });
         const data = await res.json();
         if (data.session_id) {
@@ -33,7 +64,7 @@ export function VoiceAgent() {
       }
     };
     initChat();
-  }, []);
+  }, [agentDetails]);
 
   useEffect(() => {
     if (chatScrollRef.current) {
@@ -42,7 +73,7 @@ export function VoiceAgent() {
   }, [messages, isTyping]);
 
   const handleInitiateCall = async () => {
-    if (!phoneNumber) return;
+    if (!phoneNumber || !agentDetails) return;
     setIsCalling(true);
     try {
       const res = await fetch("/api/voice-agent/initiate-call", {
@@ -50,8 +81,8 @@ export function VoiceAgent() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           phone_number: phoneNumber,
-          agent_id: 16676,
-          workspace_id: "cmpzuuz7v0ko6ur1osqdbn324"
+          agent_id: agentDetails.vani_agent_id,
+          workspace_id: agentDetails.vani_workspace_id
         })
       });
       const data = await res.json();
@@ -80,7 +111,7 @@ export function VoiceAgent() {
 
   const handleSendMessage = async (e?: React.FormEvent) => {
     if (e) e.preventDefault();
-    if (!inputMessage.trim() || !chatSessionId) return;
+    if (!inputMessage.trim() || !chatSessionId || !agentDetails) return;
 
     const userMessage = inputMessage;
     setInputMessage('');
@@ -93,7 +124,7 @@ export function VoiceAgent() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           session_id: chatSessionId,
-          workspace_id: "cmpzuuz7v0ko6ur1osqdbn324",
+          workspace_id: agentDetails.vani_workspace_id,
           message: userMessage
         })
       });
@@ -107,6 +138,28 @@ export function VoiceAgent() {
       setIsTyping(false);
     }
   };
+
+  if (isLoadingAgent) {
+    return (
+      <div className="min-h-screen pt-24 pb-12 px-4 sm:px-6 lg:px-8 bg-brand-yellow flex items-center justify-center font-display">
+        <div className="bg-white border-[6px] border-black p-8 shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] flex items-center gap-4">
+          <Loader2 className="animate-spin text-black" size={48} strokeWidth={3} />
+          <span className="text-3xl font-black uppercase text-black tracking-tight">Acquiring Agent Coordinates...</span>
+        </div>
+      </div>
+    );
+  }
+
+  if (!agentDetails && !isLoadingAgent) {
+    return (
+      <div className="min-h-screen pt-24 pb-12 px-4 sm:px-6 lg:px-8 bg-brand-yellow flex items-center justify-center font-display">
+        <div className="bg-[#FF5151] border-[6px] border-black p-8 shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] text-white text-center">
+          <h2 className="text-4xl font-black uppercase tracking-tight mb-4 text-white drop-shadow-[2px_2px_0_rgba(0,0,0,1)]">Agent Node Not Found</h2>
+          <p className="text-xl font-bold">The requested agent signature could not be located in the database.</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen pt-24 pb-12 px-4 sm:px-6 lg:px-8 bg-brand-yellow font-display selection:bg-black selection:text-white">
@@ -187,10 +240,10 @@ export function VoiceAgent() {
               <h3 className="font-black uppercase text-xl mb-4 text-white border-b-4 border-black pb-2">Configuration Context</h3>
               <ul className="space-y-4 font-bold tracking-wide mt-4">
                 <li className="flex justify-between items-center bg-white p-3 border-4 border-black text-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
-                  <span className="opacity-70">Agent ID</span> <span className="text-xl">16676</span>
+                  <span className="opacity-70">Agent Name</span> <span className="text-xl uppercase">{agentDetails?.name}</span>
                 </li>
                 <li className="flex justify-between items-center bg-white p-3 border-4 border-black text-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
-                  <span className="opacity-70">Provider</span> <span className="text-xl">Default</span>
+                  <span className="opacity-70">Routing ID</span> <span className="text-xl">{agentDetails?.vani_agent_id}</span>
                 </li>
               </ul>
             </div>
@@ -231,7 +284,7 @@ export function VoiceAgent() {
                     `}
                   >
                     <div className="font-black text-xs uppercase tracking-widest mb-1 opacity-50 block font-mono">
-                      {msg.role === 'user' ? 'CLIENT_USER' : 'VANI_AGENT_16676'}
+                      {msg.role === 'user' ? 'CLIENT_USER' : `VANI_AGENT_${agentDetails?.vani_agent_id || ''}`}
                     </div>
                     {msg.content}
                   </div>

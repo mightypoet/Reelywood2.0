@@ -6,6 +6,8 @@ import { Home } from './pages/Home';
 import { Courses } from './pages/Courses';
 import { Agent } from './pages/Agent';
 import { VoiceAgent } from './pages/VoiceAgent';
+import { AgentDirectory } from './pages/AgentDirectory';
+import { Admin } from './pages/Admin';
 
 export default function App() {
   return (
@@ -18,7 +20,9 @@ export default function App() {
             <Route path="/" element={<Home />} />
             <Route path="/courses" element={<Courses />} />
             <Route path="/agent" element={<Agent />} />
-            <Route path="/voiceagent" element={<VoiceAgent />} />
+            <Route path="/agents" element={<AgentDirectory />} />
+            <Route path="/agent/:id" element={<VoiceAgent />} />
+            <Route path="/admin" element={<Admin />} />
           </Routes>
         </main>
 

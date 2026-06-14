@@ -12,3 +12,13 @@ export type Testimonial = {
   content: string;
   rating: number;
 };
+
+export interface AgentData {
+  id: string;
+  name: string;
+  description: string;
+  type: string;
+  vani_agent_id: string;
+  vani_workspace_id: string;
+  created_at: string;
+}

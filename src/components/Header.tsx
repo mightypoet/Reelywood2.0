@@ -52,10 +52,10 @@ export function Header() {
               AGENTS
             </Link>
             <Link
-              to="/voiceagent"
-              className={`text-sm font-semibold uppercase transition-colors ${location.pathname === '/voiceagent' ? 'text-brand-neon font-black' : navItemClass}`}
+              to="/agents"
+              className={`text-sm font-semibold uppercase transition-colors ${location.pathname.startsWith('/agents') || location.pathname.startsWith('/agent/') ? 'text-brand-neon font-black' : navItemClass}`}
             >
-              VANI VOICE
+              AGENT DIRECTORY
             </Link>
             {["CONTACT", "AI STUDIO"].map((item) => (
               <a
