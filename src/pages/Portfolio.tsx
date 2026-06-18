@@ -3,7 +3,7 @@ import { supabase } from '../lib/supabaseClient';
 import { PortfolioItem } from '../types';
 import { Loader2, TrendingUp, Play, Image as ImageIcon, BarChart, Film } from 'lucide-react';
 
-const ReelCard = ({ item }: { item: PortfolioItem }) => {
+const ReelCard = ({ item, onClick }: { item: PortfolioItem; onClick: (url: string) => void }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
 
   const handleMouseEnter = () => {
@@ -21,9 +21,10 @@ const ReelCard = ({ item }: { item: PortfolioItem }) => {
 
   return (
     <div 
-      className="bg-black border-[6px] border-black shadow-[8px_8px_0_0_rgba(0,0,0,1)] hover:-translate-y-2 hover:shadow-[12px_12px_0_0_rgba(0,0,0,1)] transition-all flex flex-col group relative"
+      className="bg-black border-[6px] border-black shadow-[8px_8px_0_0_rgba(0,0,0,1)] hover:-translate-y-2 hover:shadow-[12px_12px_0_0_rgba(0,0,0,1)] transition-all flex flex-col group relative cursor-pointer"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
+      onClick={() => onClick(item.media_url)}
     >
        <div className="absolute top-4 right-4 z-20 bg-[#C6F91F] text-black w-10 h-10 flex flex-col items-center justify-center border-4 border-black rounded-full shadow-[4px_4px_0_0_rgba(0,0,0,1)] group-hover:bg-[#FF90E8] group-hover:scale-110 transition-transform">
          <Play size={18} className="ml-1" strokeWidth={3} />
@@ -52,6 +53,7 @@ const ReelCard = ({ item }: { item: PortfolioItem }) => {
 export function Portfolio() {
   const [items, setItems] = useState<PortfolioItem[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [selectedVideo, setSelectedVideo] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchItems = async () => {
@@ -145,7 +147,7 @@ export function Portfolio() {
                 
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
                   {reels.map(item => (
-                    <ReelCard key={item.id} item={item} />
+                    <ReelCard key={item.id} item={item} onClick={setSelectedVideo} />
                   ))}
                 </div>
               </section>
@@ -213,6 +215,28 @@ export function Portfolio() {
           </div>
         )}
       </div>
+
+      {selectedVideo && (
+        <div className="fixed inset-0 z-50 bg-black/80 flex items-center justify-center p-4">
+          <div className="bg-white border-[6px] border-black shadow-[12px_12px_0_0_rgba(0,0,0,1)] max-w-4xl w-full relative">
+            <button 
+              className="absolute -top-6 -right-6 bg-[#FF5151] border-[4px] border-black text-white w-12 h-12 flex items-center justify-center font-black cursor-pointer hover:scale-110 transition-transform z-10 text-xl"
+              onClick={() => setSelectedVideo(null)}
+            >
+              X
+            </button>
+            <div className="w-full aspect-video bg-black flex items-center border-[6px] border-black">
+              <video 
+                src={selectedVideo} 
+                controls 
+                autoPlay 
+                className="w-full h-full object-contain"
+              />
+            </div>
+            {/* Keeping the container brutal to match modal styling */}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
