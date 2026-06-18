@@ -8,6 +8,8 @@ import { Agent } from './pages/Agent';
 import { VoiceAgent } from './pages/VoiceAgent';
 import { AgentDirectory } from './pages/AgentDirectory';
 import { Admin } from './pages/Admin';
+import { PortfolioAdmin } from './pages/PortfolioAdmin';
+import { Portfolio } from './pages/Portfolio';
 
 export default function App() {
   return (
@@ -23,6 +25,8 @@ export default function App() {
             <Route path="/agents" element={<AgentDirectory />} />
             <Route path="/agent/:id" element={<VoiceAgent />} />
             <Route path="/admin" element={<Admin />} />
+            <Route path="/admin/portfolio" element={<PortfolioAdmin />} />
+            <Route path="/portfolio" element={<Portfolio />} />
           </Routes>
         </main>
 

@@ -157,14 +157,21 @@ export function Admin() {
   return (
     <div className="min-h-screen pt-24 pb-12 px-4 sm:px-6 lg:px-8 bg-neutral-100 font-display">
       <div className="max-w-7xl mx-auto space-y-12">
-        <header className="flex justify-between items-center bg-black text-white p-6 md:p-8 border-[6px] border-black shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] rotate-[-1deg]">
-          <div>
-            <h1 className="text-4xl md:text-5xl font-black uppercase tracking-tighter text-[#C6F91F]">Agent Admin Console</h1>
-            <p className="text-xl font-bold uppercase tracking-widest opacity-80 mt-2">Vani API + Supabase Control Panel</p>
+        <header className="flex flex-col gap-4 bg-black text-white p-6 md:p-8 border-[6px] border-black shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] rotate-[-1deg]">
+          <div className="flex justify-between items-center w-full">
+            <div>
+              <h1 className="text-4xl md:text-5xl font-black uppercase tracking-tighter text-[#C6F91F]">Agent Admin Console</h1>
+              <p className="text-xl font-bold uppercase tracking-widest opacity-80 mt-2">Vani API + Supabase Control Panel</p>
+            </div>
+            <div className="flex gap-4">
+              <Link to="/admin/portfolio" className="bg-white text-black p-3 md:px-6 md:py-3 border-4 border-white font-black uppercase hover:bg-[#3861FB] hover:text-white transition-colors flex items-center text-sm md:text-base">
+                Portfolio Admin
+              </Link>
+              <Link to="/agents" className="bg-white text-black p-3 md:px-6 md:py-3 border-4 border-white font-black uppercase hover:bg-[#FF90E8] transition-colors flex items-center text-sm md:text-base">
+                <ArrowLeft className="mr-2 hidden md:block" /> Directory
+              </Link>
+            </div>
           </div>
-          <Link to="/agents" className="bg-white text-black p-3 md:px-6 md:py-3 border-4 border-white font-black uppercase hover:bg-[#FF90E8] transition-colors flex items-center">
-            <ArrowLeft className="mr-2 hidden md:block" /> Directory
-          </Link>
         </header>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">

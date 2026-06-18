@@ -46,6 +46,12 @@ export function Header() {
               COURSES
             </Link>
             <Link
+              to="/portfolio"
+              className={`text-sm font-semibold uppercase transition-colors ${location.pathname === '/portfolio' ? 'text-brand-neon font-black' : navItemClass}`}
+            >
+              PORTFOLIO
+            </Link>
+            <Link
               to="/agent"
               className={`text-sm font-semibold uppercase transition-colors ${location.pathname === '/agent' ? 'text-brand-neon font-black' : navItemClass}`}
             >

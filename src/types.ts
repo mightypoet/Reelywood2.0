@@ -22,3 +22,13 @@ export interface AgentData {
   vani_workspace_id: string;
   created_at: string;
 }
+
+export interface PortfolioItem {
+  id: string;
+  created_at: string;
+  title: string;
+  category: 'creative' | 'reel' | 'stats';
+  media_url: string;
+  description: string;
+  marketing_metrics: Record<string, string>;
+}

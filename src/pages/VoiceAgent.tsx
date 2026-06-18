@@ -101,6 +101,7 @@ export function VoiceAgent() {
   };
 
   const handleEndCall = async () => {
+    setIsCalling(false);
     if (!callSid) return;
     try {
       await fetch("/api/voice-agent/end-call", {
@@ -108,10 +109,10 @@ export function VoiceAgent() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ call_sid: callSid })
       });
-      setCallSid(null);
-      setIsCalling(false);
     } catch (err) {
       console.error(err);
+    } finally {
+      setCallSid(null);
     }
   };
 
