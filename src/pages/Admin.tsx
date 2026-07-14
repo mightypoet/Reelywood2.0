@@ -126,7 +126,7 @@ export function Admin() {
 
   if (!isAuthenticated) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#FAE414] font-display p-4 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0IiBoZWlnaHQ9IjQiPgo8cmVjdCB3aWR0aD0iNCIgaGVpZ2h0PSI0IiBmaWxsPSIjRkFFNDE0Ii8+CjxyZWN0IHdpZHRoPSIxIiBoZWlnaHQ9IjEiIGZpbGw9IiMwMDAiLz4KPC9zdmc+')]">
+      <div className="min-h-screen flex items-center justify-center bg-[#FAE414] font-display p-4 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0IiBoZWlnaHQ9IjQiPgo8cmVjdCB3aWR0aD0iNCIgaGVpZ2h0PSI0IiBmaWxsPSIjRkFFNDE0Ii8+CjxyZWN0IHdpZHRoPSIxIiBoZWlnaHQ9IjEiIGZpbGw9IiMwMDAiLz4KPC9zdmc+')]" style={{ backgroundColor: '#000000' }}>
         <form onSubmit={handleLogin} className="bg-white border-[8px] border-black p-8 md:p-12 max-w-md w-full shadow-[16px_16px_0px_0px_rgba(0,0,0,1)] relative">
           <div className="absolute -top-6 -right-6 w-16 h-16 bg-[#FF5151] border-4 border-black rotate-[12deg] flex items-center justify-center shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
             <ShieldAlert className="text-white" size={32} strokeWidth={3} />
@@ -155,7 +155,7 @@ export function Admin() {
   }
 
   return (
-    <div className="min-h-screen pt-24 pb-12 px-4 sm:px-6 lg:px-8 bg-neutral-100 font-display">
+    <div className="min-h-screen pt-24 pb-12 px-4 sm:px-6 lg:px-8 bg-neutral-100 font-display" style={{ backgroundColor: '#000000' }}>
       <div className="max-w-7xl mx-auto space-y-12">
         <header className="flex flex-col gap-4 bg-black text-white p-6 md:p-8 border-[6px] border-black shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] rotate-[-1deg]">
           <div className="flex justify-between items-center w-full">

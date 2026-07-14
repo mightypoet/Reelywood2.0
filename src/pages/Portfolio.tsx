@@ -80,7 +80,7 @@ export function Portfolio() {
   const stats = items.filter(i => i.category === 'stats');
 
   return (
-    <div className="min-h-screen pt-24 pb-20 px-4 sm:px-6 lg:px-8 bg-neutral-100 font-display selection:bg-black selection:text-white bg-[radial-gradient(#d4d4d8_1px,transparent_1px)] bg-[size:24px_24px]">
+    <div className="min-h-screen pt-24 pb-20 px-4 sm:px-6 lg:px-8 bg-neutral-100 font-display selection:bg-black selection:text-white bg-[radial-gradient(#d4d4d8_1px,transparent_1px)] bg-[size:24px_24px]" style={{ backgroundColor: '#000000' }}>
       <div className="max-w-7xl mx-auto">
         <header className="mb-16 border-b-8 border-black pb-8">
           <div className="inline-block bg-[#FAE414] text-black font-black text-sm uppercase px-4 py-1 mb-4 border-4 border-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] rotate-[-2deg]">
