@@ -30,121 +30,119 @@ export function InteractiveWorkflow() {
   const [selectedNodeId, setSelectedNodeId] = useState<string | null>(null);
 
   return (
-    <section className="py-24 bg-white border-y-[4px] border-black font-playful overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <FadeUp>
-          <div className="text-center mb-16">
-             <div className="inline-block px-4 py-2 border-[3px] border-black bg-brand-yellow font-bold uppercase tracking-widest text-sm mb-6 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
-                Omnichannel Network
-             </div>
-            <h2 className="text-5xl md:text-7xl font-black text-neutral-900 mb-6 tracking-tight uppercase leading-none">
-              Digital Marketing <br className="md:hidden" />
-              <span className="text-white bg-[#3861FB] px-4 py-1 border-[4px] border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] rotate-[-2deg] inline-block ml-2 mt-4 md:mt-0">
-                Workflow
-              </span>
-            </h2>
-            <p className="text-neutral-700 max-w-2xl mx-auto text-lg md:text-xl font-medium mt-8">
-              Explore interconnected campaigns executing simultaneously across all channels.
-            </p>
-          </div>
-        </FadeUp>
-
-        <div className="w-full flex justify-center h-[600px] md:h-[800px] mt-10">
-          <motion.div 
-            className="relative w-full max-w-[800px] h-[600px]"
-            initial={{ scale: 0.9 }}
-            animate={{ 
-              scale: activeNode ? 0.95 : 1 
-            }}
-            transition={{ duration: 0.8, type: "spring", bounce: 0.3 }}
-          >
-            {/* Base grid / shadow plane */}
-            <div 
-               className="absolute inset-0 bg-white border-[4px] border-black rounded-[40px] shadow-[16px_16px_0px_0px_rgba(0,0,0,1)] overflow-hidden"
-            >
-               <div className="absolute inset-0 opacity-[0.1]" style={{ backgroundImage: 'radial-gradient(#000 2px, transparent 2px)', backgroundSize: '30px 30px' }}></div>
-            </div>
-
-            {/* SVG Connecting Paths */}
-            <svg 
-              viewBox="0 0 800 600"
-              className="absolute inset-0 w-full h-full overflow-visible pointer-events-none"
-            >
-              {paths.map((p, i) => (
-                <g key={i}>
-                  {/* Outline Path */}
-                  <path 
-                    d={p.d} 
-                    fill="none" 
-                    stroke="black" 
-                    strokeWidth="14"
-                    strokeLinejoin="round" 
-                    strokeLinecap="round"
-                  />
-                  {/* Inner Path */}
-                  <path 
-                    d={p.d} 
-                    fill="none" 
-                    stroke={p.color} 
-                    strokeWidth="8"
-                    strokeLinejoin="round" 
-                    strokeLinecap="round"
-                    className="animate-pulse"
-                    style={{ animationDuration: `${2 + i * 0.5}s` }}
-                  />
-                </g>
-              ))}
-              
-              {/* Central data hub background */}
-              <circle cx="400" cy="350" r="100" fill="#FF5151" fillOpacity="0.1" stroke="black" strokeWidth="4" strokeDasharray="10 10" />
-            </svg>
-
-            {/* Nodes */}
-            {nodes.map((node, i) => {
-              const Icon = node.icon;
-              const isActive = activeNode === node.id;
-              
-              return (
-                <motion.div
-                  key={node.id}
-                  className={`absolute flex flex-col items-center justify-center p-4 lg:p-6 border-[4px] border-black cursor-pointer origin-center transition-colors duration-300 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] ${isActive ? 'bg-white' : node.bg}`}
-                  style={{ 
-                    left: `${(node.x / 800) * 100}%`,
-                    top: `${(node.y / 600) * 100}%`,
-                    zIndex: isActive ? 100 : node.z,
-                  }}
-                  initial={{ translateX: "-50%", translateY: "-50%" }}
-                  animate={{ 
-                    scale: isActive ? 1.2 : 1
-                  }}
-                  onHoverStart={() => setActiveNode(node.id)}
-                  onHoverEnd={() => setActiveNode(null)}
-                  onClick={() => setSelectedNodeId(node.id)}
-                >
-                  <div className="bg-white p-3 md:p-4 rounded-full border-[3px] border-black mb-2 md:mb-3 shadow-[inset_0px_4px_0px_0px_rgba(0,0,0,0.1)]">
-                    <Icon size={24} className="md:w-8 md:h-8" />
-                  </div>
-                  <span className="font-bold uppercase tracking-wider text-xs md:text-sm text-black bg-white px-2 py-1 border-2 border-black whitespace-nowrap">
-                    {node.label}
-                  </span>
-                </motion.div>
-              );
-            })}
-          </motion.div>
+    <div className="w-full">
+      <FadeUp>
+        <div className="text-center mb-16">
+           <div className="inline-block px-4 py-2 border-4 border-black bg-[#FF90E8] font-black uppercase tracking-widest text-sm mb-6 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+              Omnichannel Network
+           </div>
+          <h2 className="text-5xl md:text-7xl font-black text-[#909090] mb-6 tracking-tighter uppercase leading-none">
+            Digital Marketing <br className="md:hidden" />
+            <span className="text-black bg-[#FAE414] px-4 py-1 border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] rotate-[-2deg] inline-block ml-2 mt-4 md:mt-0">
+              Workflow
+            </span>
+          </h2>
+          <p className="text-black max-w-2xl mx-auto text-lg md:text-xl font-bold mt-8 bg-white p-4 border-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+            Explore interconnected campaigns executing simultaneously across all channels.
+          </p>
         </div>
+      </FadeUp>
+
+      <div className="w-full flex justify-center mt-10 overflow-x-auto py-10 px-4">
+        <motion.div 
+          className="relative min-w-[800px] w-full max-w-[800px] h-[600px]"
+          initial={{ scale: 0.9 }}
+          animate={{ 
+            scale: activeNode ? 0.95 : 1 
+          }}
+          transition={{ duration: 0.8, type: "spring", bounce: 0.3 }}
+        >
+          {/* Base grid / shadow plane */}
+          <div 
+             className="absolute inset-0 bg-white border-8 border-black rounded-none shadow-[16px_16px_0px_0px_rgba(0,0,0,1)] overflow-hidden"
+          >
+             <div className="absolute inset-0 opacity-[0.2]" style={{ backgroundImage: 'radial-gradient(#000 2px, transparent 2px)', backgroundSize: '30px 30px' }}></div>
+          </div>
+
+          {/* SVG Connecting Paths */}
+          <svg 
+            viewBox="0 0 800 600"
+            className="absolute inset-0 w-full h-full overflow-visible pointer-events-none"
+          >
+            {paths.map((p, i) => (
+              <g key={i}>
+                {/* Outline Path */}
+                <path 
+                  d={p.d} 
+                  fill="none" 
+                  stroke="black" 
+                  strokeWidth="14"
+                  strokeLinejoin="round" 
+                  strokeLinecap="round"
+                />
+                {/* Inner Path */}
+                <path 
+                  d={p.d} 
+                  fill="none" 
+                  stroke={p.color} 
+                  strokeWidth="8"
+                  strokeLinejoin="round" 
+                  strokeLinecap="round"
+                  className="animate-pulse"
+                  style={{ animationDuration: `${2 + i * 0.5}s` }}
+                />
+              </g>
+            ))}
+            
+            {/* Central data hub background */}
+            <circle cx="400" cy="350" r="100" fill="#FF5151" fillOpacity="0.2" stroke="black" strokeWidth="4" strokeDasharray="10 10" />
+          </svg>
+
+          {/* Nodes */}
+          {nodes.map((node, i) => {
+            const Icon = node.icon;
+            const isActive = activeNode === node.id;
+            
+            return (
+              <motion.div
+                key={node.id}
+                className={`absolute flex flex-col items-center justify-center p-4 lg:p-6 border-4 border-black cursor-pointer origin-center transition-colors duration-300 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] ${isActive ? 'bg-white' : node.bg}`}
+                style={{ 
+                  left: `${(node.x / 800) * 100}%`,
+                  top: `${(node.y / 600) * 100}%`,
+                  zIndex: isActive ? 100 : node.z,
+                }}
+                initial={{ translateX: "-50%", translateY: "-50%" }}
+                animate={{ 
+                  scale: isActive ? 1.2 : 1
+                }}
+                onHoverStart={() => setActiveNode(node.id)}
+                onHoverEnd={() => setActiveNode(null)}
+                onClick={() => setSelectedNodeId(node.id)}
+              >
+                <div className="bg-white p-3 md:p-4 border-4 border-black mb-2 md:mb-3 shadow-[inset_0px_4px_0px_0px_rgba(0,0,0,0.1)]">
+                  <Icon size={24} className="md:w-8 md:h-8" />
+                </div>
+                <span className="font-black uppercase tracking-wider text-xs md:text-sm text-black bg-white px-2 py-1 border-2 border-black whitespace-nowrap">
+                  {node.label}
+                </span>
+              </motion.div>
+            );
+          })}
+        </motion.div>
       </div>
 
       <AnimatePresence>
         {selectedNodeId && (
           <motion.div
-            className="fixed inset-0 bg-neutral-900/60 z-[200] flex items-center justify-center p-4 backdrop-blur-sm"
+            className="fixed inset-0 bg-black/80 z-[200] flex items-center justify-center p-4 backdrop-blur-sm"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={() => setSelectedNodeId(null)}
           >
             <motion.div
-              className="bg-white border-[4px] border-black p-8 max-w-md w-full shadow-[16px_16px_0px_0px_rgba(0,0,0,1)] relative"
+              className="bg-white border-8 border-black p-8 max-w-md w-full shadow-[16px_16px_0px_0px_rgba(0,0,0,1)] relative"
               initial={{ scale: 0.8, y: 20 }}
               animate={{ scale: 1, y: 0 }}
               exit={{ scale: 0.8, y: 20 }}
@@ -152,10 +150,10 @@ export function InteractiveWorkflow() {
               onClick={(e) => e.stopPropagation()}
             >
               <button 
-                className="absolute top-4 right-4 text-black hover:text-neutral-500 transition-colors"
+                className="absolute top-4 right-4 text-black hover:text-[#FF5151] transition-colors"
                 onClick={() => setSelectedNodeId(null)}
               >
-                <X size={24} strokeWidth={3} />
+                <X size={24} strokeWidth={4} />
               </button>
               
               {(() => {
@@ -164,11 +162,11 @@ export function InteractiveWorkflow() {
                 const Icon = node.icon;
                 return (
                   <div className="flex flex-col items-center text-center mt-4">
-                    <div className={`p-5 rounded-full border-[4px] border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] mb-6 ${node.bg}`}>
+                    <div className={`p-5 border-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] mb-6 ${node.bg}`}>
                       <Icon size={40} className="text-black" />
                     </div>
                     <h3 className="text-3xl font-black uppercase tracking-tight mb-4">{node.label}</h3>
-                    <p className="text-lg font-medium text-neutral-700 leading-relaxed border-t-2 border-dashed border-neutral-300 pt-6 mt-2">
+                    <p className="text-lg font-bold text-black leading-relaxed border-t-4 border-dashed border-black pt-6 mt-2">
                        {node.description}
                     </p>
                   </div>
@@ -178,6 +176,6 @@ export function InteractiveWorkflow() {
           </motion.div>
         )}
       </AnimatePresence>
-    </section>
+    </div>
   );
 }

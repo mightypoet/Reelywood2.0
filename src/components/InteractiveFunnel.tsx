@@ -145,99 +145,97 @@ export function InteractiveFunnel() {
   });
 
   return (
-    <section className="py-32 bg-brand-cream border-y-[4px] border-black font-playful overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <FadeUp>
-          <div className="text-center mb-20">
-             <div className="inline-block px-4 py-2 border-[3px] border-black bg-brand-green font-bold uppercase tracking-widest text-sm mb-6 rounded-full shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
-                Sales Pipeline
-             </div>
-            <h2 className="text-5xl md:text-7xl font-black text-neutral-900 mb-6 tracking-tight uppercase leading-none">
-              The Stacked <br className="md:hidden" />
-              <span className="text-black bg-brand-neon px-2 border-[4px] border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] rotate-2 inline-block ml-2">
-                Conversion Funnel
-              </span>
-            </h2>
-            <p className="text-neutral-700 max-w-2xl mx-auto text-lg md:text-xl font-medium mt-8">
-              Interact with our neo-brutalist funnel layers. Hover to explore how we turn cold traffic into brand advocates.
-            </p>
-          </div>
-        </FadeUp>
-
-        <div className="flex flex-col lg:flex-row items-center justify-between gap-16 lg:gap-8">
-          
-          {/* 2D Flat Funnel Visualization */}
-          <div className="w-full lg:w-1/2 flex justify-center">
-            <svg viewBox="0 0 400 460" className="w-full max-w-[400px] h-auto overflow-visible py-10">
-              {stageElements.reverse()}
-            </svg>
-          </div>
-
-          {/* Details / Content Panel */}
-          <div className="w-full lg:w-1/2">
-            <div className="bg-white border-[4px] border-black p-8 md:p-10 shadow-[16px_16px_0px_0px_rgba(0,0,0,1)] relative overflow-hidden min-h-[400px] flex flex-col justify-center">
-               
-               {/* Background pattern */}
-               <div className="absolute top-0 right-0 w-32 h-32 bg-brand-neon border-l-[4px] border-b-[4px] border-black -mr-16 -mt-16 rotate-45 z-0" />
-               <div className="absolute bottom-0 left-0 w-32 h-32 bg-[#FF90E8] border-r-[4px] border-t-[4px] border-black -ml-16 -mb-16 rotate-45 z-0" />
-               
-               <div className="relative z-10">
-                 {!activeStage ? (
-                   <div className="flex items-center justify-center h-full text-center">
-                     <p className="text-xl md:text-2xl font-bold text-neutral-500 animate-pulse">
-                        Hover over a funnel stage <br/>to reveal the strategy
-                     </p>
-                   </div>
-                 ) : (
-                   <div className="flex flex-col h-full justify-center">
-                     {funnelStages.map((stage) => {
-                       if (stage.id !== activeStage) return null;
-                       const Icon = stage.icon;
-                       return (
-                         <motion.div
-                           key={stage.id}
-                           initial={{ opacity: 0, y: 20 }}
-                           animate={{ opacity: 1, y: 0 }}
-                           exit={{ opacity: 0, y: -20 }}
-                           transition={{ duration: 0.3 }}
-                         >
-                           <div className="flex items-center gap-4 mb-6">
-                              <span className="p-4 border-[3px] border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]" style={{ backgroundColor: stage.color }}>
-                                <Icon size={32} className="text-black" />
-                              </span>
-                              <h3 className="text-4xl md:text-5xl font-black text-black uppercase tracking-tight">
-                                {stage.title}
-                              </h3>
-                           </div>
-                           <p className="text-xl md:text-2xl text-neutral-800 font-medium leading-relaxed mb-10">
-                             {stage.description}
-                           </p>
-                           
-                           <div className="space-y-4">
-                              <div className="flex items-center gap-3 font-semibold text-lg border-b-2 border-dashed border-neutral-300 pb-3">
-                                 <ArrowRight className="text-brand-neon" /> 
-                                 <span>Metrics: Conversion Rate %</span>
-                              </div>
-                              <div className="flex items-center gap-3 font-semibold text-lg border-b-2 border-dashed border-neutral-300 pb-3">
-                                 <ArrowRight className="text-[#FF90E8]" /> 
-                                 <span>Tactics: Multi-channel Touchpoints</span>
-                              </div>
-                           </div>
-
-                           <button className="mt-10 px-8 py-4 bg-black text-white font-bold uppercase tracking-widest hover:bg-neutral-800 transition-colors w-max border-[2px] border-black hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
-                             Optimize Stage
-                           </button>
-                         </motion.div>
-                       );
-                     })}
-                   </div>
-                 )}
-               </div>
-            </div>
-          </div>
-
+    <div className="w-full">
+      <FadeUp>
+        <div className="text-center mb-20">
+           <div className="inline-block px-4 py-2 border-4 border-black bg-[#C6F91F] font-black uppercase tracking-widest text-sm mb-6 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+              Sales Pipeline
+           </div>
+          <h2 className="text-5xl md:text-7xl font-black text-[#6e6e6e] mb-6 tracking-tighter uppercase leading-none">
+            The Stacked <br className="md:hidden" />
+            <span className="text-black bg-white px-2 border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] rotate-2 inline-block ml-2">
+              Conversion Funnel
+            </span>
+          </h2>
+          <p className="text-black bg-white p-4 border-4 border-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] max-w-2xl mx-auto text-lg md:text-xl font-bold mt-8">
+            Interact with our neo-brutalist funnel layers. Hover to explore how we turn cold traffic into brand advocates.
+          </p>
         </div>
+      </FadeUp>
+
+      <div className="flex flex-col lg:flex-row items-center justify-between gap-16 lg:gap-8">
+        
+        {/* 2D Flat Funnel Visualization */}
+        <div className="w-full lg:w-1/2 flex justify-center">
+          <svg viewBox="0 0 400 460" className="w-full max-w-[400px] h-auto overflow-visible py-10">
+            {stageElements.reverse()}
+          </svg>
+        </div>
+
+        {/* Details / Content Panel */}
+        <div className="w-full lg:w-1/2">
+          <div className="bg-white border-8 border-black p-8 md:p-10 shadow-[16px_16px_0px_0px_rgba(0,0,0,1)] relative overflow-hidden min-h-[400px] flex flex-col justify-center">
+             
+             {/* Background pattern */}
+             <div className="absolute top-0 right-0 w-32 h-32 bg-[#C6F91F] border-l-[8px] border-b-[8px] border-black -mr-16 -mt-16 rotate-45 z-0" />
+             <div className="absolute bottom-0 left-0 w-32 h-32 bg-[#FF90E8] border-r-[8px] border-t-[8px] border-black -ml-16 -mb-16 rotate-45 z-0" />
+             
+             <div className="relative z-10 bg-white/90 p-4 border-4 border-black border-dashed">
+               {!activeStage ? (
+                 <div className="flex items-center justify-center h-full text-center py-10">
+                   <p className="text-xl md:text-2xl font-black uppercase text-black animate-pulse">
+                      Hover over a funnel stage <br/>to reveal the strategy
+                   </p>
+                 </div>
+               ) : (
+                 <div className="flex flex-col h-full justify-center p-4">
+                   {funnelStages.map((stage) => {
+                     if (stage.id !== activeStage) return null;
+                     const Icon = stage.icon;
+                     return (
+                       <motion.div
+                         key={stage.id}
+                         initial={{ opacity: 0, y: 20 }}
+                         animate={{ opacity: 1, y: 0 }}
+                         exit={{ opacity: 0, y: -20 }}
+                         transition={{ duration: 0.3 }}
+                       >
+                         <div className="flex items-center gap-4 mb-6">
+                            <span className="p-4 border-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]" style={{ backgroundColor: stage.color }}>
+                              <Icon size={32} className="text-black" strokeWidth={3} />
+                            </span>
+                            <h3 className="text-4xl md:text-5xl font-black text-black uppercase tracking-tight">
+                              {stage.title}
+                            </h3>
+                         </div>
+                         <p className="text-xl text-black font-bold leading-relaxed mb-10 bg-neutral-100 p-4 border-4 border-black">
+                           {stage.description}
+                         </p>
+                         
+                         <div className="space-y-4 font-black uppercase">
+                            <div className="flex items-center gap-3 border-b-4 border-black pb-3">
+                               <ArrowRight className="text-[#3861FB]" strokeWidth={3} /> 
+                               <span>Metrics: Conversion Rate %</span>
+                            </div>
+                            <div className="flex items-center gap-3 border-b-4 border-black pb-3">
+                               <ArrowRight className="text-[#FF90E8]" strokeWidth={3} /> 
+                               <span>Tactics: Multi-channel Touchpoints</span>
+                            </div>
+                         </div>
+
+                         <button className="mt-10 px-8 py-4 bg-black text-white font-black uppercase tracking-widest hover:bg-[#FAE414] hover:text-black transition-colors w-max border-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-1 hover:translate-y-1">
+                           Optimize Stage
+                         </button>
+                       </motion.div>
+                     );
+                   })}
+                 </div>
+               )}
+             </div>
+          </div>
+        </div>
+
       </div>
-    </section>
+    </div>
   );
 }

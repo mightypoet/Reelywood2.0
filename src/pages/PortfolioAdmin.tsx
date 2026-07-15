@@ -152,7 +152,7 @@ export function PortfolioAdmin() {
   };
 
   return (
-    <div className="min-h-screen pt-24 pb-12 px-4 sm:px-6 lg:px-8 bg-neutral-100 font-display" style={{ backgroundColor: '#000000' }}>
+    <div className="min-h-screen pt-24 pb-12 px-4 sm:px-6 lg:px-8 bg-neutral-100 font-display" style={{ backgroundColor: '#040404' }}>
       <div className="max-w-7xl mx-auto space-y-12">
         <header className="flex flex-col gap-4 bg-black text-white p-6 md:p-8 border-[6px] border-black shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] rotate-[-1deg]">
           <div className="flex justify-between items-center w-full">

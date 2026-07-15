@@ -18,6 +18,7 @@ export function VoiceAgent() {
   const [messages, setMessages] = useState<Array<{ role: 'user' | 'assistant', content: string }>>([]);
   const [inputMessage, setInputMessage] = useState('');
   const [isTyping, setIsTyping] = useState(false);
+  const [transcripts, setTranscripts] = useState<any[]>([]);
   
   const chatScrollRef = useRef<HTMLDivElement>(null);
 
@@ -52,7 +53,7 @@ export function VoiceAgent() {
         const res = await fetch("/api/voice-agent/test-chat/session", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ agent_id: Number(agentDetails.vani_agent_id) || agentDetails.vani_agent_id, workspace_id: agentDetails.vani_workspace_id })
+          body: JSON.stringify({ agent_id: Number(agentDetails.vani_agent_id), workspace_id: agentDetails.vani_workspace_id })
         });
         const data = await res.json();
         if (data.session_id) {
@@ -64,6 +65,45 @@ export function VoiceAgent() {
       }
     };
     initChat();
+  }, [agentDetails]);
+
+  useEffect(() => {
+    if (!agentDetails) return;
+    
+    const fetchTranscripts = async () => {
+      try {
+        const { data, error } = await supabase
+          .from('call_transcripts')
+          .select('*')
+          .eq('agent_id', String(agentDetails.vani_agent_id))
+          .order('created_at', { ascending: false })
+          .limit(10);
+          
+        if (error) throw error;
+        setTranscripts(data || []);
+      } catch (err) {
+        console.error("Error fetching transcripts", err);
+      }
+    };
+
+    fetchTranscripts();
+
+    const channel = supabase
+      .channel('custom-all-channel')
+      .on(
+        'postgres_changes',
+        { event: 'INSERT', schema: 'public', table: 'call_transcripts' },
+        (payload) => {
+          if (payload.new.agent_id === String(agentDetails.vani_agent_id)) {
+            setTranscripts((prev) => [payload.new, ...prev]);
+          }
+        }
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
   }, [agentDetails]);
 
   useEffect(() => {
@@ -81,17 +121,17 @@ export function VoiceAgent() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           phone_number: phoneNumber,
-          agent_id: Number(agentDetails.vani_agent_id) || agentDetails.vani_agent_id,
+          agent_id: Number(agentDetails.vani_agent_id),
           workspace_id: agentDetails.vani_workspace_id
         })
       });
       const data = await res.json();
-      if (data.call_sid || data.status === "success" || data.success) {
+      if (res.ok && (data.call_sid || data.status === "success" || data.success)) {
         setCallSid(data.call_sid || 'call-in-progress');
       } else {
         setIsCalling(false);
         console.error("Call returned error:", data);
-        alert(data.error || data.message || "Failed to initiate call.");
+        alert(data.detail || data.error || data.message || "Failed to initiate call.");
       }
     } catch (err) {
       console.error("Call error:", err);
@@ -253,6 +293,37 @@ export function VoiceAgent() {
                   <span className="opacity-70">Routing ID</span> <span className="text-xl">{agentDetails?.vani_agent_id}</span>
                 </li>
               </ul>
+            </div>
+
+            {/* Recent Call Transcripts */}
+            <div className="bg-[#FAE414] border-[6px] border-black p-6 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] text-black relative">
+              <h3 className="font-black uppercase text-xl mb-4 text-black border-b-4 border-black pb-2">Recent Call Transcripts</h3>
+              {transcripts.length === 0 ? (
+                <div className="bg-white p-4 border-4 border-black font-bold uppercase text-center opacity-70">
+                  No transcripts available yet.
+                </div>
+              ) : (
+                <div className="space-y-4 max-h-[400px] overflow-y-auto pr-2">
+                  {transcripts.map((t, idx) => (
+                    <div key={idx} className="bg-white border-4 border-black p-4 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+                      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2 mb-3 border-b-4 border-black pb-3">
+                        <span className="font-black text-xs uppercase tracking-widest bg-black text-white px-2 py-1 self-start truncate max-w-[200px]" title={t.call_sid}>SID: {t.call_sid}</span>
+                        <span className="font-bold text-xs border-2 border-black px-2 py-1 bg-neutral-100 self-start">{new Date(t.created_at).toLocaleString()}</span>
+                      </div>
+                      <div className="font-mono text-sm border-2 border-black p-3 bg-neutral-50 h-32 overflow-y-auto whitespace-pre-wrap">
+                        {typeof t.transcript === 'string' ? t.transcript : JSON.stringify(t.transcript, null, 2)}
+                      </div>
+                      {t.recording_url && (
+                        <div className="mt-3">
+                          <a href={t.recording_url} target="_blank" rel="noreferrer" className="inline-block bg-[#3861FB] text-white text-xs font-black uppercase px-3 py-2 border-2 border-black hover:bg-black transition-colors">
+                            Play Recording
+                          </a>
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
 
