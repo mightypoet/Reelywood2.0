@@ -5,6 +5,8 @@ import { LiquidButton, MetalButton } from '../components/ui/button';
 import { Settings, ShieldAlert, Loader2, User, Search, Fingerprint } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
+import { PricingSection } from '../components/PricingSection';
+
 export function AgentDirectory() {
   const [agents, setAgents] = useState<AgentData[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -34,16 +36,16 @@ export function AgentDirectory() {
       <div className="max-w-7xl mx-auto">
         <header className="mb-12 border-b-8 border-black pb-8 flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
           <div>
-            <h1 className="text-5xl md:text-7xl font-black uppercase tracking-tighter text-black drop-shadow-[4px_4px_0_rgba(255,255,255,1)]">
+            <h1 className="text-4xl md:text-5xl lg:text-7xl font-black uppercase tracking-tighter text-black drop-shadow-[4px_4px_0_rgba(255,255,255,1)]">
               Agent Directory
             </h1>
-            <p className="mt-4 text-xl font-bold bg-[#C6F91F] text-black inline-block px-4 py-2 border-4 border-black shadow-[6px_6px_0_0_rgba(0,0,0,1)]">
+            <p className="mt-4 text-sm md:text-xl font-bold bg-[#C6F91F] text-black inline-block px-3 md:px-4 py-2 border-4 border-black shadow-[6px_6px_0_0_rgba(0,0,0,1)]">
               Authorized Personnel Only
             </p>
           </div>
-          <LiquidButton asChild variant="outline" className="bg-white border-4 border-black hover:bg-black hover:text-white transition-colors uppercase font-black text-xl px-8 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+          <LiquidButton asChild variant="outline" className="h-auto bg-white border-4 border-black hover:bg-black hover:text-white transition-colors uppercase font-black text-sm md:text-xl py-3 md:py-4 px-6 md:px-8 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
             <Link to="/admin">
-              <Settings className="mr-2" strokeWidth={3} /> Admin Panel
+              <Settings className="mr-2 w-4 h-4 md:w-6 md:h-6" strokeWidth={3} /> Admin Panel
             </Link>
           </LiquidButton>
         </header>
@@ -92,6 +94,8 @@ export function AgentDirectory() {
             ))}
           </div>
         )}
+
+        <PricingSection />
       </div>
     </div>
   );

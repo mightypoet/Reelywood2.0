@@ -151,9 +151,9 @@ export function InteractiveFunnel() {
            <div className="inline-block px-4 py-2 border-4 border-black bg-[#C6F91F] font-black uppercase tracking-widest text-sm mb-6 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
               Sales Pipeline
            </div>
-          <h2 className="text-5xl md:text-7xl font-black text-[#6e6e6e] mb-6 tracking-tighter uppercase leading-none">
+          <h2 className="text-4xl md:text-6xl lg:text-7xl font-black text-[#6e6e6e] mb-6 tracking-tighter uppercase leading-none">
             The Stacked <br className="md:hidden" />
-            <span className="text-black bg-white px-2 border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] rotate-2 inline-block ml-2">
+            <span className="text-black bg-white px-2 border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] rotate-2 inline-block ml-2 mt-4 md:mt-0">
               Conversion Funnel
             </span>
           </h2>

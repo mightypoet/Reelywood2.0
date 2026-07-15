@@ -3,7 +3,7 @@ import { supabase } from '../lib/supabaseClient';
 import { PortfolioItem } from '../types';
 import { Loader2, TrendingUp, Play, Image as ImageIcon, BarChart, Film } from 'lucide-react';
 
-const ReelCard = ({ item, onClick }: { item: PortfolioItem; onClick: (url: string) => void }) => {
+const ReelCard: React.FC<{ item: PortfolioItem; onClick: (url: string) => void }> = ({ item, onClick }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
 
   const handleMouseEnter = () => {

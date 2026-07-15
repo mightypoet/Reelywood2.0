@@ -36,7 +36,7 @@ export function InteractiveWorkflow() {
            <div className="inline-block px-4 py-2 border-4 border-black bg-[#FF90E8] font-black uppercase tracking-widest text-sm mb-6 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
               Omnichannel Network
            </div>
-          <h2 className="text-5xl md:text-7xl font-black text-[#909090] mb-6 tracking-tighter uppercase leading-none">
+          <h2 className="text-4xl md:text-6xl lg:text-7xl font-black text-[#909090] mb-6 tracking-tighter uppercase leading-none">
             Digital Marketing <br className="md:hidden" />
             <span className="text-black bg-[#FAE414] px-4 py-1 border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] rotate-[-2deg] inline-block ml-2 mt-4 md:mt-0">
               Workflow
@@ -135,7 +135,7 @@ export function InteractiveWorkflow() {
       <AnimatePresence>
         {selectedNodeId && (
           <motion.div
-            className="fixed inset-0 bg-black/80 z-[200] flex items-center justify-center p-4 backdrop-blur-sm"
+            className="fixed inset-0 bg-black/80 z-[2000] flex items-center justify-center p-4 backdrop-blur-sm"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}

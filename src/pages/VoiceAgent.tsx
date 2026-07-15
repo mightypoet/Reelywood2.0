@@ -213,10 +213,10 @@ export function VoiceAgent() {
       <div className="max-w-7xl mx-auto">
         
         <header className="mb-12 text-center md:text-left">
-          <h1 className="text-5xl md:text-7xl font-black uppercase tracking-tighter text-black drop-shadow-[4px_4px_0_rgba(255,255,255,1)]">
-            Vani AI Agent
+          <h1 className="text-4xl md:text-5xl lg:text-7xl font-black uppercase tracking-tighter text-black drop-shadow-[4px_4px_0_rgba(255,255,255,1)]">
+            NATASHA AI Agent
           </h1>
-          <p className="mt-4 text-xl font-bold bg-black text-white inline-block px-4 py-2 border-4 border-white shadow-[8px_8px_0_0_rgba(0,0,0,1)]">
+          <p className="mt-4 text-sm md:text-xl font-bold bg-black text-white inline-block px-3 md:px-4 py-2 border-4 border-white shadow-[8px_8px_0_0_rgba(0,0,0,1)]">
             Voice & Chat Interface Workspace
           </p>
         </header>

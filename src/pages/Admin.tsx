@@ -161,7 +161,7 @@ export function Admin() {
           <div className="flex justify-between items-center w-full">
             <div>
               <h1 className="text-4xl md:text-5xl font-black uppercase tracking-tighter text-[#C6F91F]">Agent Admin Console</h1>
-              <p className="text-xl font-bold uppercase tracking-widest opacity-80 mt-2">Vani API + Supabase Control Panel</p>
+              <p className="text-xl font-bold uppercase tracking-widest opacity-80 mt-2">NATASHA API + Supabase Control Panel</p>
             </div>
             <div className="flex gap-4">
               <Link to="/admin/portfolio" className="bg-white text-black p-3 md:px-6 md:py-3 border-4 border-white font-black uppercase hover:bg-[#3861FB] hover:text-white transition-colors flex items-center text-sm md:text-base">
@@ -208,11 +208,11 @@ export function Admin() {
                 <input required type="text" value={formData.type} onChange={e => setFormData({...formData, type: e.target.value})} className="w-full border-4 border-black p-3 font-bold bg-neutral-50 focus:bg-white focus:outline-none focus:ring-4 focus:ring-[#C6F91F] transition-all" />
               </div>
               <div className="pt-4 border-t-4 border-dashed border-black">
-                <label className="block text-lg font-black uppercase mb-2 text-[#3861FB]">Vani Agent ID</label>
+                <label className="block text-lg font-black uppercase mb-2 text-[#3861FB]">NATASHA Agent ID</label>
                 <input required type="text" value={formData.vani_agent_id} onChange={e => setFormData({...formData, vani_agent_id: e.target.value})} className="w-full border-4 border-black p-3 font-bold bg-neutral-50 focus:bg-white focus:outline-none focus:ring-4 focus:ring-[#3861FB] transition-all" />
               </div>
               <div>
-                <label className="block text-lg font-black uppercase mb-2 text-[#FF5151]">Vani Workspace ID</label>
+                <label className="block text-lg font-black uppercase mb-2 text-[#FF5151]">NATASHA Workspace ID</label>
                 <input required type="text" value={formData.vani_workspace_id} onChange={e => setFormData({...formData, vani_workspace_id: e.target.value})} className="w-full border-4 border-black p-3 font-bold bg-neutral-50 focus:bg-white focus:outline-none focus:ring-4 focus:ring-[#FF5151] transition-all font-mono text-sm" />
               </div>
               
